@@ -159,7 +159,8 @@ public class JarAnalyzer extends AbstractFileTypeAnalyzer {
             "tstamp",
             "dstamp",
             "eclipse-sourcereferences",
-            "kotlin-version");
+            "kotlin-version",
+            "require-capability");
     /**
      * Deprecated Jar manifest attribute, that is, nonetheless, useful for
      * analysis.
@@ -446,6 +447,7 @@ public class JarAnalyzer extends AbstractFileTypeAnalyzer {
                     final Properties pomProperties = retrievePomProperties(path, jar);
                     final File pomFile = extractPom(path, jar);
                     final Model pom = PomUtils.readPom(pomFile);
+                    pom.setGAVFromPomDotProperties(pomProperties);
                     pom.processProperties(pomProperties);
 
                     final String artifactId = new File(path).getParentFile().getName();
@@ -510,12 +512,11 @@ public class JarAnalyzer extends AbstractFileTypeAnalyzer {
      * @return a Properties object or null if no pom.properties was found
      */
     private Properties retrievePomProperties(String path, final JarFile jar) {
-        Properties pomProperties = null;
+        final Properties pomProperties = new Properties();
         final String propPath = path.substring(0, path.length() - 7) + "pom.properties";
         final ZipEntry propEntry = jar.getEntry(propPath);
         if (propEntry != null) {
             try (Reader reader = new InputStreamReader(jar.getInputStream(propEntry), StandardCharsets.UTF_8)) {
-                pomProperties = new Properties();
                 pomProperties.load(reader);
                 LOGGER.debug("Read pom.properties: {}", propPath);
             } catch (UnsupportedEncodingException ex) {
@@ -586,18 +587,19 @@ public class JarAnalyzer extends AbstractFileTypeAnalyzer {
      * @return true if there was evidence within the pom that we could use;
      * otherwise false
      */
-    public static boolean setPomEvidence(Dependency dependency, Model pom, List<ClassNameInformation> classes, boolean isMainPom) {
+    public static boolean setPomEvidence(Dependency dependency, Model pom,
+            List<ClassNameInformation> classes, boolean isMainPom) {
         if (pom == null) {
             return false;
         }
         boolean foundSomething = false;
         boolean addAsIdentifier = true;
-        String groupid = pom.getGroupId();
-        String parentGroupId = pom.getParentGroupId();
-        String artifactid = pom.getArtifactId();
-        String parentArtifactId = pom.getParentArtifactId();
-        String version = pom.getVersion();
-        String parentVersion = pom.getParentVersion();
+        String groupid = intepolationFailCheck(pom.getGroupId());
+        String parentGroupId = intepolationFailCheck(pom.getParentGroupId());
+        String artifactid = intepolationFailCheck(pom.getArtifactId());
+        String parentArtifactId = intepolationFailCheck(pom.getParentArtifactId());
+        String version = intepolationFailCheck(pom.getVersion());
+        String parentVersion = intepolationFailCheck(pom.getParentVersion());
 
         if (("org.sonatype.oss".equals(parentGroupId) && "oss-parent".equals(parentArtifactId))
                 || ("org.springframework.boot".equals(parentGroupId) && "spring-boot-starter-parent".equals(parentArtifactId))) {
@@ -1285,6 +1287,19 @@ public class JarAnalyzer extends AbstractFileTypeAnalyzer {
         return !key.matches(".*(version|title|vendor|name|license|description).*")
                 && value.matches("^[a-zA-Z_][a-zA-Z0-9_\\$]*\\.([a-zA-Z_][a-zA-Z0-9_\\$]*\\.)*([a-zA-Z_][a-zA-Z0-9_\\$]*)$");
 
+    }
+
+    /**
+     * Returns null if the value starts with `${` and ends with `}`.
+     *
+     * @param value the value to check
+     * @return the correct value which may be null
+     */
+    private static String intepolationFailCheck(String value) {
+        if (value != null && value.contains("${")) {
+            return null;
+        }
+        return value;
     }
 
     /**

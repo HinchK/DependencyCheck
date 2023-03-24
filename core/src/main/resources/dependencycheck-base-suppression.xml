@@ -621,6 +621,7 @@
             61. cpe:/a:storage_project:storage is software build in go (the github.com/containers/storage project) #4436
             62. cpe:/a:pivotal_software:rabbitmq is software build in Erlang #4178
             63. cpe:/a:saml_project:saml is a SAML implementation in Go #5167
+            64. cpe:/a:yaml_project:yaml is a YAML implementation in Go #5233 and #5234
         ]]></notes>
         <filePath regex="true">.*(\.(dll|jar|ear|war|pom|nupkg|nuspec|aar)|pom\.xml|package.json|packages.config)$</filePath>
         <cpe>cpe:/a:sandbox:sandbox</cpe>
@@ -686,6 +687,7 @@
         <cpe>cpe:/a:storage_project:storage</cpe>
         <cpe>cpe:/a:pivotal_software:rabbitmq</cpe>
         <cpe>cpe:/a:saml_project:saml</cpe>
+        <cpe>cpe:/a:yaml_project:yaml</cpe>
     </suppress>
     <suppress base="true">
         <notes><![CDATA[
@@ -2334,34 +2336,6 @@
     </suppress>
     <suppress base="true">
         <notes><![CDATA[
-        Aether false positive.
-        ]]></notes>
-        <gav regex="true">org\.eclipse\.aether:aether.*</gav>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
-    </suppress>
-    <suppress base="true">
-        <notes><![CDATA[
-        FP per #1673
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.glassfish.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
-    </suppress>
-    <suppress base="true">
-        <notes><![CDATA[
-        FP per #3829 the eclipse Microprofile projects are not the eclipse IDE
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.eclipse\.microprofile.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
-    </suppress>
-    <suppress base="true">
-        <notes><![CDATA[
-        FP per issue #4310
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.eclipse\.jetty/.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
-    </suppress>
-    <suppress base="true">
-        <notes><![CDATA[
         FP per #3829 the eclipse Microprofile config file provider project is not the Jenkins config file provider plugin
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/org\.eclipse\.microprofile\.config/.*@.*$</packageUrl>
@@ -2900,6 +2874,13 @@
         ]]></notes>
         <packageUrl regex="true">^(?!pkg:maven/com\.vaadin/vaadin(-core)?@).*$</packageUrl>
         <cpe>cpe:/a:vaadin:vaadin</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per #5414
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.vaadin/sso-kit-starter@.*$</packageUrl>
+        <cpe>cpe:/a:vaadin:flow</cpe>
     </suppress>
     <suppress base="true">
         <notes><![CDATA[
@@ -4451,10 +4432,10 @@
     </suppress>
     <suppress base="true">
         <notes><![CDATA[
-        several python-* PyPI packages hit a FP CPE match #3233 & #3017
+        several python-* PyPI packages hit a FP CPE match #3233 & #3017 & #5335
         as Python itself is not a PyPI package suppress it with a broad regex
         ]]></notes>
-        <packageUrl regex="true">^pkg:pypi/python\-.*$</packageUrl>
+        <packageUrl regex="true">^pkg:pypi/.*python\-.*$</packageUrl>
         <cpe>cpe:/a:python:python</cpe>
         <cpe>cpe:/a:python_software_foundation:python</cpe>
     </suppress>
@@ -4648,7 +4629,6 @@
         FP per issue #4129
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/jakarta\.ws\.rs/jakarta\.ws\.rs-api@.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
         <cpe>cpe:/a:oracle:java_se</cpe>
         <cpe>cpe:/a:oracle:web_services</cpe>
     </suppress>
@@ -4671,7 +4651,6 @@
         FP per issue #4135
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/org\.eclipse/yasson@.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
         <cpe>cpe:/a:oracle:projects</cpe>
     </suppress>
     <suppress base="true">
@@ -4789,13 +4768,6 @@
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/com\.hazelcast/hazelcast@(?!5\.1-BETA-1).*$</packageUrl>
         <cve>CVE-2022-0265</cve>
-    </suppress>
-    <suppress base="true">
-        <notes><![CDATA[
-        FP per issue #4327
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/javax\.ws\.rs/javax\.ws\.rs-api@.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
     </suppress>
     <suppress base="true">
         <notes><![CDATA[
@@ -5995,13 +5967,6 @@
     </suppress>
     <suppress base="true">
         <notes><![CDATA[
-        FP per issue #4653
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/.*@.*$</packageUrl>
-        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
-    </suppress>
-    <suppress base="true">
-        <notes><![CDATA[
         FP per issue #5121 - fix for commons
         ]]></notes>
         <packageUrl regex="true">^(?!pkg:maven/commons-net/commons-net).*$</packageUrl>
@@ -6112,5 +6077,313 @@
         ]]></notes>
         <packageUrl regex="true">^.*$</packageUrl>
         <cve>CVE-2021-4277</cve>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5169
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/com\.google\.crypto\.tink/apps-webpush@.*$</packageUrl>
+       <cpe>cpe:/a:google:google_apps</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5212
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/com\.github\.java-json-tools/json-patch@.*$</packageUrl>
+       <cpe>cpe:/a:json-patch_project:json-patch</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5217
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/net\.pwall\.json/json-pointer@.*$</packageUrl>
+       <cpe>cpe:/a:json-pointer_project:json-pointer</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5275
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/com\.graphql-java-kickstart/graphql-spring-boot-starter@.*$</packageUrl>
+       <cpe>cpe:/a:graphql-java_project:graphql-java</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5276
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/org\.apache\.hadoop\.thirdparty/hadoop-shaded-guava@.*$</packageUrl>
+       <cpe>cpe:/a:apache:hadoop</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5278
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/com\.datastax\.oss/native-protocol@.*$</packageUrl>
+       <cpe>cpe:/a:apache:cassandra</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5280
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/org\.apache\.camel/camel-ftp@.*$</packageUrl>
+       <cpe>cpe:/a:ftp_project:ftp</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5253
+       ]]></notes>
+       <packageUrl regex="true">^pkg:npm/jsonpointer@.*$</packageUrl>
+       <cpe>cpe:/a:json-pointer_project:json-pointer</cpe>
+    </suppress>
+    <suppress base="true">
+       <notes><![CDATA[
+       FP per issue #5252
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/com\.google\.flatbuffers/flatbuffers-java@.*$</packageUrl>
+       <cpe>cpe:/a:flat_project:flat</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per issues #5321, #5322, #5323, #5324
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/me\.dinowernli/java\-grpc\-prometheus@.*$</packageUrl>
+        <cpe>cpe:/a:grpc:grpc</cpe>
+        <cpe>cpe:/a:prometheus:prometheus</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per issue #5370
+        colon before version is needed to avoid also matching cpe:/a:redhat:wildfly_openssl
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.wildfly\.openssl/.*$</packageUrl>
+        <cpe>cpe:/a:redhat:wildfly:</cpe>
+        <cpe>cpe:/a:wildfly:wildfly:</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per issue #5367
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.graphql\-java\-kickstart/.*$</packageUrl>
+        <cpe>cpe:/a:graphql-java_project:graphql-java</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per issue #5334
+        ]]></notes>
+        <packageUrl regex="true">^pkg:pypi/.*docker.*$</packageUrl>
+        <cpe>cpe:/a:docker:docker</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per #1673 #3829 #4129 #4135 #4310 #4327 #4653 #5290 #5287
+        Broadly suppress eclipse_ide for anything outside of the org.eclipse.platform groupIds
+        ]]></notes>
+        <packageUrl regex="true">^(?!pkg:maven/org.eclipse.platform).+$</packageUrl>
+        <cpe>cpe:/a:eclipse:eclipse_ide</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        suppress various improper matches to the CPE that belongs only to pkg:maven/org.json/json
+        FP per #5502
+        ]]></notes>
+        <packageUrl regex="true">^(?!pkg:maven/org\.json/json@).+$</packageUrl>
+        <cpe>cpe:/a:json-java_project:json-java</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        suppress various improper matches to the CPE that belongs only to pkg:npm/flat
+        FP per #5454
+        ]]></notes>
+        <packageUrl regex="true">^(?!pkg:npm/flat@).+$</packageUrl>
+        <cpe>cpe:/a:flat_project:flat</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per issue #5489, make sure to include all apacha calcite-avatica modules
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.calcite\.avatica/.*$</packageUrl>
+        <cpe>cpe:/a:apache:calcite:</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+        FP per issue #5381, apollo_project:apollo is a PHP project unrelated to apollographql
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.apollographql\.apollo/.*$</packageUrl>
+        <cpe>cpe:/a:apollo_project:apollo</cpe>
+    </suppress>
+    <!-- generated suppressions added to main in 8.1.1 -->
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5333
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.graphql-java-kickstart/graphql-kickstart-spring-support@.*$</packageUrl>
+        <cpe>cpe:/a:graphql-java_project:graphql-java</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5336
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.openrewrite\.recipe/rewrite-jhipster@.*$</packageUrl>
+        <cpe>cpe:/a:jhipster:jhipster</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5361
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/jakarta\.resource/jakarta\.resource-api@.*$</packageUrl>
+        <cpe>cpe:/a:payara:payara</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5373
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.locationtech\.spatial4j/spatial4j@.*$</packageUrl>
+        <cpe>cpe:/a:voyager_project:voyager</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5372
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.locationtech\.spatial4j/spatial4j@.*$</packageUrl>
+        <cpe>cpe:/a:smiley_project:smiley</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5380
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/dev\.ludovic\.netlib/lapack@.*$</packageUrl>
+        <cpe>cpe:/a:lapack_project:lapack</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5375
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.eclipse\.microprofile\.jwt/microprofile-jwt-auth-api@.*$</packageUrl>
+        <cpe>cpe:/a:payara:payara</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5368
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.hadoop\.thirdparty/hadoop-shaded-protobuf_3_7@.*$</packageUrl>
+        <cpe>cpe:/a:apache:hadoop</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5325
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.enterprisedt/edtFTPj@.*$</packageUrl>
+        <cpe>cpe:/a:ftp_project:ftp</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5436
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.codehaus\.woodstox/stax2-api@.*$</packageUrl>
+        <cpe>cpe:/a:fasterxml:woodstox</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5459
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.oracle\.database\.nls/orai18n@.*$</packageUrl>
+        <cpe>cpe:/a:oracle:database</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5460
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.oracle\.database\.nls/orai18n@.*$</packageUrl>
+        <cpe>cpe:/a:oracle:oracle_database</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5501
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jsonschema2pojo/jsonschema2pojo-jdk-annotation@.*$</packageUrl>
+        <cpe>cpe:/a:json-schema_project:json-schema</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5500
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.iceberg/iceberg-orc@.*$</packageUrl>
+        <cpe>cpe:/a:apache:orc</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5499
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.iceberg/iceberg-flink-1\.15@.*$</packageUrl>
+        <cpe>cpe:/a:apache:flink</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5498
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.googlecode\.javaewah/JavaEWAH@.*$</packageUrl>
+        <cpe>cpe:/a:google:google_search</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5497
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.cloud/grpc-gcp@.*$</packageUrl>
+        <cpe>cpe:/a:grpc:grpc</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5496
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.flink/flink-s3-fs-hadoop@.*$</packageUrl>
+        <cpe>cpe:/a:apache:hadoop</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5492
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.microsoft\.azure/azure-cosmosdb-direct@.*$</packageUrl>
+        <cpe>cpe:/a:microsoft:platform_sdk</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5491
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.microsoft\.azure/azure-cosmosdb@.*$</packageUrl>
+        <cpe>cpe:/a:www-sql_project:www-sql</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5490
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.microsoft\.azure/azure-cosmosdb@.*$</packageUrl>
+        <cpe>cpe:/a:async_project:async</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5471
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.spark/spark-token-provider-kafka-0-10_2\.12@.*$</packageUrl>
+        <cpe>cpe:/a:apache:kafka</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5462
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.ws\.commons\.axiom/axiom-impl@.*$</packageUrl>
+        <cpe>cpe:/a:web_project:web</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5461
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.github\.luben/zstd-jni@.*$</packageUrl>
+        <cpe>cpe:/a:freebsd:freebsd</cpe>
+    </suppress>
+    <suppress base="true">
+        <notes><![CDATA[
+   FP per issue #5506
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/io\.kamon/kamon-prometheus_2\.13@.*$</packageUrl>
+        <cpe>cpe:/a:prometheus:prometheus</cpe>
     </suppress>
 </suppressions>

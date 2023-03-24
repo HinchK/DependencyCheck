@@ -44,6 +44,7 @@ _odc_completions()
             --disableFileName
             --disableGolangDep
             --disableGolangMod
+            --disableHostedSuppressions
             --disableJar
             --disableMavenInstall
             --disableMixAudit
@@ -58,6 +59,9 @@ _odc_completions()
             --disableOpenSSL
             --disableOssIndex
             --disableOssIndexCache
+            --ossIndexRemoteErrorWarnOnly
+            --disableKnownExploited
+            --kevURL <url>
             --disablePip
             --disablePipfile
             --disablePyDist
@@ -77,6 +81,9 @@ _odc_completions()
             --go
         -h --help
             --hints
+            --hostedSuppressionsForceUpdate
+            --hostedSuppressionsValidForHours <hours>
+            --hostedSuppressionsUrl <url>
             --junitFailOnCVSS <score>
         -l --log
         -n --noupdate

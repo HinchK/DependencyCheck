@@ -224,6 +224,16 @@ public final class Settings {
          */
         public static final String CPE_URL = "cpe.url";
         /**
+         * The properties key for the URL to retrieve the Known Exploited
+         * Vulnerabilities..
+         */
+        public static final String KEV_URL = "kev.url";
+        /**
+         * The properties key to control the skipping of the check for Known
+         * Exploited Vulnerabilities updates.
+         */
+        public static final String KEV_CHECK_VALID_FOR_HOURS = "kev.check.validforhours";
+        /**
          * Whether or not if using basic auth with a proxy the system setting
          * 'jdk.http.auth.tunneling.disabledSchemes' should be set to an empty
          * string.
@@ -283,6 +293,28 @@ public final class Settings {
          */
         public static final String SUPPRESSION_FILE_PASSWORD = "suppression.file.password";
         /**
+         * The key for the whether the hosted suppressions file datasource is
+         * enabled.
+         */
+        public static final String HOSTED_SUPPRESSIONS_ENABLED = "hosted.suppressions.enabled";
+        /**
+         * The key for the hosted suppressions file URL.
+         */
+        public static final String HOSTED_SUPPRESSIONS_URL = "hosted.suppressions.url";
+
+        /**
+         * The properties key for defining whether the hosted suppressions file
+         * will be updated regardless of the autoupdate settings.
+         */
+        public static final String HOSTED_SUPPRESSIONS_FORCEUPDATE = "hosted.suppressions.forceupdate";
+
+        /**
+         * The properties key to control the skipping of the check for hosted
+         * suppressions file updates.
+         */
+        public static final String HOSTED_SUPPRESSIONS_VALID_FOR_HOURS = "hosted.suppressions.validforhours";
+
+        /**
          * The key for the hint file.
          */
         public static final String HINTS_FILE = "hints.file";
@@ -296,6 +328,13 @@ public final class Settings {
          * The properties key for whether the Jar Analyzer is enabled.
          */
         public static final String ANALYZER_JAR_ENABLED = "analyzer.jar.enabled";
+
+        /**
+         * The properties key for whether the Known Exploited Vulnerability
+         * Analyzer is enabled.
+         */
+        public static final String ANALYZER_KNOWN_EXPLOITED_ENABLED = "analyzer.knownexploited.enabled";
+
         /**
          * The properties key for whether experimental analyzers are loaded.
          */
@@ -438,7 +477,8 @@ public final class Settings {
          */
         public static final String ANALYZER_AUTOCONF_ENABLED = "analyzer.autoconf.enabled";
         /**
-         * The properties key for whether the maven_install.json analyzer is enabled.
+         * The properties key for whether the maven_install.json analyzer is
+         * enabled.
          */
         public static final String ANALYZER_MAVEN_INSTALL_ENABLED = "analyzer.maveninstall.enabled";
         /**
@@ -738,7 +778,8 @@ public final class Settings {
          */
         public static final String ANALYZER_OSSINDEX_REQUEST_DELAY = "analyzer.ossindex.request.delay";
         /**
-         * The properties key for only warning about Sonatype OSS Index remote errors instead of failing the request.
+         * The properties key for only warning about Sonatype OSS Index remote
+         * errors instead of failing the request.
          */
         public static final String ANALYZER_OSSINDEX_WARN_ONLY_ON_REMOTE_ERRORS = "analyzer.ossindex.remote-error.warn-only";
         /**

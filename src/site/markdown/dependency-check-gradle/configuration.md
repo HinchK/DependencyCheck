@@ -45,6 +45,8 @@ skipConfigurations   | A list of configurations that will be skipped. This is mu
 scanConfigurations   | A list of configurations that will be scanned, all other configurations are skipped. This is mutually exclusive with the skipConfigurations property. | `[]` which implicitly means all configurations get scanned.
 scanProjects         | A list of projects that will be scanned, all other projects are skipped. The list or projects to skip must include a preceding colon: `scanProjects = [':app']`. This is mutually exclusive with the `skipProjects` property. | `[]` which implicitly means all projects get scanned.
 skipProjects         | A list of projects that will be skipped.  The list or projects to skip must include a preceding colon: `skipProjects = [':sub1']`. This is mutually exclusive with the `scanProjects` property. | `[]` which means no projects are skipped.
+scanBuildEnv         | A boolean indicating whether to scan the `buildEnv`.                                                                 | false
+scanDependencies     | A boolean indicating whether to scan the `dependencies`.                                                             | true
 scanSet              | A list of directories that will be scanned for additional dependencies.                                              | ['src/main/resources','src/main/webapp']
 
 #### Example
@@ -101,11 +103,13 @@ Config Group | Property              | Description                              
 -------------|-----------------------|-------------------------------------------------------------------------------------------------------------------|------------------
 analyzers    | experimentalEnabled   | Sets whether the [experimental analyzers](../analyzers/index.html) will be used. If not set to true the analyzers marked as experimental (see below) will not be used | false
 analyzers    | archiveEnabled        | Sets whether the Archive Analyzer will be used.                                                                   | true
+analyzers    | knownExploitedEnabled | Sets whether the Known Exploited Vulnerability update and analyzer are enabled.                                   | true
+analyzers    | knownExploitedURL     | Sets URL to the CISA Known Exploited Vulnerabilities JSON data feed.                                              | https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
 analyzers    | zipExtensions         | A comma-separated list of additional file extensions to be treated like a ZIP file, the contents will be extracted and analyzed. | &nbsp;
 analyzers    | jarEnabled            | Sets whether Jar Analyzer will be used.                                                                           | true
 analyzers    | dartEnabled           | Sets whether the [experimental](../analyzers/index.html) Dart Analyzer will be used.                              | true
-analyzers    | centralEnabled        | Sets whether Central Analyzer will be used. If this analyzer is being disabled there is a good chance you also want to disable the Nexus Analyzer (see below). | true
-analyzers    | nexusEnabled          | Sets whether Nexus Analyzer will be used (requires Nexus Pro). This analyzer is superceded by the Central Analyzer; however, you can configure this to run against a Nexus Pro installation. | true
+analyzers    | centralEnabled        | Sets whether Central Analyzer will be used; by default in the Gradle plugin this analyzer is disabled as all information gained from Central is already available in the build. Enable this analyzer when you hit false positives for (embedded) Maven dependencies that do not have an associated maven package-URL in the report. | false
+analyzers    | nexusEnabled          | Sets whether Nexus Analyzer will be used (requires Nexus Pro). This analyzer is superceded by the Central Analyzer; however, you can configure this to run against a Nexus Pro installation. | false
 analyzers    | nexusUrl              | Defines the Nexus Server's web service end point (example http://domain.enterprise/service/local/). If not set the Nexus Analyzer will be disabled. | &nbsp;
 analyzers    | nexusUsesProxy        | Whether or not the defined proxy should be used when connecting to Nexus.                                         | true
 analyzers    | pyDistributionEnabled | Sets whether the [experimental](../analyzers/index.html) Python Distribution Analyzer will be used. `experimentalEnabled` must be set to true. | true
@@ -158,8 +162,13 @@ retirejs     | filters               | Configures the list of regular expessions
 ossIndex     | enabled               | Sets whether Sonatype's [OSS Index Analyzer](../analyzers/oss-index-analyzer.html) will be used. This analyzer requires an internet connection.                                                                  | true
 ossIndex     | username              | The optional user name to connect to Sonatype's OSS Index.                                                        | &nbsp;
 ossIndex     | password              | The optional passwod or API token to connect to Sonatype's OSS Index,                                             | &nbsp;
+ossIndex     | warnOnlyOnRemoteErrors| Sets whether remote errors from the OSS Index (e.g. BAD GATEWAY, RATE LIMIT EXCEEDED) will result in warnings only instead of failing execution. | false
 slack        | enabled               | Whether or not slack notifications are enabled.                                                                   | false
 slack        | webhookUrl            | The custom incoming webhook URL to receive notifications.                                                         | &nbsp;
+hostedSuppressions | enabled         | Whether the hosted suppressions file will be used.                                                                | true
+hostedSuppressions | forceupdate     | Sets whether hosted suppressions file will update regardless of the `autoupdate` setting.                         | false
+hostedSuppressions | url             | The URL to the Retire JS repository.                                                                              | https://jeremylong.github.io/DependencyCheck/suppressions/publishedSuppressions.xml
+hostedSuppressions | validForHours   | The number of hours to wait before checking for new updates of the hosted suppressions file .                     | 2
 
 #### Example
 ```groovy

@@ -319,7 +319,7 @@ public final class CliParser {
                 .addOption(newOption(ARGUMENT.HELP_SHORT, ARGUMENT.HELP, "Print this message."))
                 .addOption(newOption(ARGUMENT.ADVANCED_HELP, "Print the advanced help message."))
                 .addOption(newOption(ARGUMENT.DISABLE_AUTO_UPDATE_SHORT, ARGUMENT.DISABLE_AUTO_UPDATE,
-                        "Disables the automatic updating of the CPE data."))
+                        "Disables the automatic updating of the NVD-CVE, hosted-suppressions and RetireJS data."))
                 .addOption(newOptionWithArg(ARGUMENT.VERBOSE_LOG_SHORT, ARGUMENT.VERBOSE_LOG, "file",
                         "The file path to write verbose logging information."))
                 .addOptionGroup(newOptionGroup(newOptionWithArg(ARGUMENT.SUPPRESSION_FILES, "file",
@@ -457,6 +457,8 @@ public final class CliParser {
                 .addOption(newOption(ARGUMENT.DISABLE_MSBUILD, "Disable the MS Build Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_JAR, "Disable the Jar Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_ARCHIVE, "Disable the Archive Analyzer."))
+                .addOption(newOption(ARGUMENT.DISABLE_KEV, "Disable the Known Exploited Vulnerability Analyzer."))
+                .addOption(newOptionWithArg(ARGUMENT.KEV_URL, "url", "The url to the CISA Known Exploited Vulnerabilities JSON data feed"))
                 .addOption(newOption(ARGUMENT.DISABLE_ASSEMBLY, "Disable the .NET Assembly Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_PY_DIST, "Disable the Python Distribution Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_CMAKE, "Disable the Cmake Analyzer."))
@@ -496,7 +498,14 @@ public final class CliParser {
                 .addOption(newOption(ARGUMENT.DISABLE_RETIRE_JS, "Disable the RetireJS Analyzer."))
                 .addOption(newOption(ARGUMENT.ENABLE_NEXUS, "Enable the Nexus Analyzer."))
                 .addOption(newOption(ARGUMENT.ARTIFACTORY_ENABLED, "Whether the Artifactory Analyzer should be enabled."))
-                .addOption(newOption(ARGUMENT.PURGE_NVD, "Purges the local NVD data cache"));
+                .addOption(newOption(ARGUMENT.PURGE_NVD, "Purges the local NVD data cache"))
+                .addOption(newOption(ARGUMENT.DISABLE_HOSTED_SUPPRESSIONS, "Disable the usage of the hosted suppressions file"))
+                .addOption(newOption(ARGUMENT.HOSTED_SUPPRESSIONS_FORCEUPDATE, "Force the hosted suppressions file to update even"
+                                                                               + " if autoupdate is disabled"))
+                .addOption(newOptionWithArg(ARGUMENT.HOSTED_SUPPRESSIONS_VALID_FOR_HOURS, "hours",
+                                            "The number of hours to wait before checking for new updates of the the hosted suppressions file."))
+                .addOption(newOptionWithArg(ARGUMENT.HOSTED_SUPPRESSIONS_URL, "url",
+                                            "The URL for a mirrored hosted suppressions file"));
 
     }
 
@@ -569,13 +578,13 @@ public final class CliParser {
      * Example given `--disableArchive` on the command line would cause this
      * method to return true for the disable archive setting.
      *
-     * @param argument the command line argument
+     * @param disableFlag the command line disable option
      * @param setting the corresponding settings key
      * @return true if the disable option was set, if not set the currently
      * configured value will be returned
      */
-    public boolean hasDisableOption(String argument, String setting) {
-        if (line == null || !line.hasOption(argument)) {
+    public boolean isDisabled(String disableFlag, String setting) {
+        if (line == null || !line.hasOption(disableFlag)) {
             try {
                 return !settings.getBoolean(setting);
             } catch (InvalidSettingException ise) {
@@ -594,12 +603,7 @@ public final class CliParser {
      * otherwise false
      */
     public boolean isNodeAuditDisabled() {
-        if (hasDisableOption("disableNSP", Settings.KEYS.ANALYZER_NODE_AUDIT_ENABLED)) {
-            LOGGER.error("The disableNSP argument has been deprecated and replaced by disableNodeAudit");
-            LOGGER.error("The disableNSP argument will be removed in the next version");
-            return true;
-        }
-        return hasDisableOption(ARGUMENT.DISABLE_NODE_AUDIT, Settings.KEYS.ANALYZER_NODE_AUDIT_ENABLED);
+        return isDisabled(ARGUMENT.DISABLE_NODE_AUDIT, Settings.KEYS.ANALYZER_NODE_AUDIT_ENABLED);
     }
 
     /**
@@ -609,7 +613,7 @@ public final class CliParser {
      * otherwise false
      */
     public boolean isYarnAuditDisabled() {
-        return hasDisableOption(ARGUMENT.DISABLE_YARN_AUDIT, Settings.KEYS.ANALYZER_YARN_AUDIT_ENABLED);
+        return isDisabled(ARGUMENT.DISABLE_YARN_AUDIT, Settings.KEYS.ANALYZER_YARN_AUDIT_ENABLED);
     }
 
     /**
@@ -619,7 +623,7 @@ public final class CliParser {
      * otherwise false
      */
     public boolean isPnpmAuditDisabled() {
-        return hasDisableOption(ARGUMENT.DISABLE_PNPM_AUDIT, Settings.KEYS.ANALYZER_PNPM_AUDIT_ENABLED);
+        return isDisabled(ARGUMENT.DISABLE_PNPM_AUDIT, Settings.KEYS.ANALYZER_PNPM_AUDIT_ENABLED);
     }
 
     /**
@@ -1187,6 +1191,14 @@ public final class CliParser {
          */
         public static final String DISABLE_ARCHIVE = "disableArchive";
         /**
+         * Disables the Known Exploited Analyzer.
+         */
+        public static final String DISABLE_KEV = "disableKnownExploited";
+        /**
+         * The URL to the CISA Known Exploited Vulnerability JSON datafeed.
+         */
+        public static final String KEV_URL = "kevURL";
+        /**
          * Disables the Python Distribution Analyzer.
          */
         public static final String DISABLE_PY_DIST = "disablePyDist";
@@ -1510,5 +1522,22 @@ public final class CliParser {
          * when generating the JUNIT report format.
          */
         public static final String FAIL_JUNIT_ON_CVSS = "junitFailOnCVSS";
+        /**
+         * The CLI argument to set the number of hours to wait before re-checking hosted suppressions file for updates.
+         */
+        public static final String DISABLE_HOSTED_SUPPRESSIONS = "disableHostedSuppressions";
+        /**
+         * The CLI argument to set the number of hours to wait before re-checking hosted suppressions file for updates.
+         */
+        public static final String HOSTED_SUPPRESSIONS_VALID_FOR_HOURS = "hostedSuppressionsValidForHours";
+        /**
+         * The CLI argument to set Whether the hosted suppressions file will update regardless of the `noupdate` argument.
+         */
+        public static final String HOSTED_SUPPRESSIONS_FORCEUPDATE = "hostedSuppressionsForceUpdate";
+        /**
+         * The CLI argument to set the location of a mirrored hosted suppressions
+         * file .
+         */
+        public static final String HOSTED_SUPPRESSIONS_URL = "hostedSuppressionsUrl";
     }
 }

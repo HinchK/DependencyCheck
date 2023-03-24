@@ -1,6 +1,130 @@
 # Change Log
 
-## [Version 7.4.4](https://github.com/jeremylong/DependencyCheck/releases/tag/v7.4.4) (2022-01-06)
+
+## [Version 8.2.1](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.2.1) (2023-03-23)
+
+### Fixed
+
+ - NullPointerException in MSBuildAnalyzer (#5589)
+ - SQL Syntax for Oracle (#5590)
+ - Use `https://` URLs in report templates (#5582)
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/64?closed=1).
+
+## [Version 8.2.0](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.2.0) (2023-03-22)
+
+### Added
+
+ - Support msbuild Directory.build.props (#5475)
+ - better display of NPM audit references
+ - Add CVSS V3 results from NPM Audit results
+
+### Fixed
+
+ - Fix several issues on NPM Audit reporting (#5546)
+ - Case issue in SQL (#5557)
+ - Fix CWE(s) extraction for NPM Audit advisories
+ - Use the stable github_advisory_id instead of the now unstable id in NPM audit results
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/63?closed=1).
+
+## [Version 8.1.2](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.1.2) (2023-02-28)
+
+### Fixed
+
+ - Fix `NullPointerException` in the Jar Analyzer introduced in 8.1.1 (#5512)
+ 
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/62?closed=1).
+
+## [Version 8.1.1](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.1.1) (2023-02-27)
+
+### Fixed
+
+ - allow hosted suppressions file to be disabled (#5509)
+ - Several FPs not suitable for our automation (#5504)
+ - Fix incorrect defaults for nexus and central-analyzer in gradle plugin documentation (#5503)
+ - Erroneous error-log for deprecated CLI flag usage when using properyfile based disablement of Node Audit Analyzer (#5487)
+ - Prefer pom.properties G/A/V over pom.xml G/A/V to resolve GAV interpolation issues (#5473)
+ - Node package dependencies ending up as related dependency of the wrong version of the package (#5479)
+ - do not throw error if pyproject.toml is in node_modules (#5470)
+ 
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/61?closed=1).
+
+## [Version 8.1.0](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.1.0) (2023-01-26)
+
+### Added
+
+- `Pipefile.lock` files are now supported ([#5404](https://github.com/jeremylong/DependencyCheck/pull/5404)).
+- Python projects with only a `pyproject.toml` but no lock file or requirements will report an error as ODC is unable to analyze the project ([#5409](https://github.com/jeremylong/DependencyCheck/pull/5409)).
+
+### Fixed
+
+- Some maven projects caused false positives due to bad string interpolation ([#5421](https://github.com/jeremylong/DependencyCheck/pull/5421)).
+- Error message from Assembly Analyzer has been updated to emphasize dotnet 6 is required for analysis ([#5408](https://github.com/jeremylong/DependencyCheck/pull/5408)).
+- Correct issue where database defrag occurs even when no updates were performed ([#5441](https://github.com/jeremylong/DependencyCheck/pull/5441)).
+- Fixed several False Positives and one False Negative.
+- Fixed the `format` configuration more flexible in the gradle plugin ([dependency-check-gradle/#324](https://github.com/dependency-check/dependency-check-gradle/pull/324)).
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/60?closed=1).
+
+## [Version 8.0.2](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.0.2) (2023-01-26)
+
+### Fixed
+
+- Resolved bug causing an issue with some Maven Extensions ([#5366](https://github.com/jeremylong/DependencyCheck/pull/5366)).
+- ArchiveAnalyzer will now correctly throw an exception if it cannot open an Archive ([#5371](https://github.com/jeremylong/DependencyCheck/pull/5371)).
+- Updated CSV report so that it no longer has a duplicate `description` column ([#5364](https://github.com/jeremylong/DependencyCheck/pull/5364)).
+- Moved several logging statements to trace which should drastically reduce the log size ([#5350](https://github.com/jeremylong/DependencyCheck/pull/5350)).
+- Fixed bug with RetireJS' `--retirejsFilterNonVulnerable` and `--retirejsFilter` when used with the CLI ([#5351](https://github.com/jeremylong/DependencyCheck/pull/5351)).
+- Fixed the `sarif` report format and added validation ([#5345](https://github.com/jeremylong/DependencyCheck/pull/5345) and ([#5363](https://github.com/jeremylong/DependencyCheck/pull/5363))
+- Fixed `MalformedPackageException` in the gradle plugin ([dependency-check-gradle/#320](https://github.com/dependency-check/dependency-check-gradle/pull/320)).
+- Fixed `MissingMethodException` in the gradle plugin ([dependency-check-gradle/#316](https://github.com/dependency-check/dependency-check-gradle/pull/316)).
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/59?closed=1).
+
+## [Version 8.0.1](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.0.1) (2023-01-18)
+
+### Fixed
+
+- Fixed Stack Overflow Exception in the gradle plugin ([dependency-check-gradle/#308](https://github.com/dependency-check/dependency-check-gradle/pull/308)).
+- Fixed No Signature of Method Exception in the gradle plugin ([dependency-check-gradle/#305](https://github.com/dependency-check/dependency-check-gradle/pull/305)).
+- Updated DB initialization scripts for externally hosted DBs ([#5314](https://github.com/jeremylong/DependencyCheck/pull/5314) and [#5317](https://github.com/jeremylong/DependencyCheck/pull/5317)).
+  - Postgres users will need to use the updated init script and 8.0.1.
+- Resolved NPE in the NodePackageAnalyzer ([#5339](https://github.com/jeremylong/DependencyCheck/pull/5339)).
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/58?closed=1).
+
+## [Version 8.0.0](https://github.com/jeremylong/DependencyCheck/releases/tag/v8.0.0) (2023-01-15)
+
+### Added
+
+- Utilize the hosted suppression file to allow for faster remediation of reported False Positives ([#4723](https://github.com/jeremylong/DependencyCheck/issues/4723)).
+- Include the [CISA Known Exploited Vulnerability Catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) ([#4878](https://github.com/jeremylong/DependencyCheck/issues/4878)).
+- The `gradle` and `maven` plugins now have the capability to scan the build plugins ([#4035](https://github.com/jeremylong/DependencyCheck/issues/4035)).
+- The `gradle` and `maven` plugins, for transitive dependencies, will report the root dependency in the project that included the transitive dependency ([#5001](https://github.com/jeremylong/DependencyCheck/pull/5001)).
+- Added `properties.security-severity` to SARIF report for better integration with GitHub Security Code scanning ([#5277](https://github.com/jeremylong/DependencyCheck/pull/5227)).
+- Allow for HTTP auth settings for Retire JS respository ([#5209](https://github.com/jeremylong/DependencyCheck/pull/5209)).
+- New schema for the XML report was added to support some of the above additions ([#5296](https://github.com/jeremylong/DependencyCheck/pull/5296)).
+- Added missing gradle option to only warn on remote errors from the OSS Index Analyzer ([gradle #303](https://github.com/dependency-check/dependency-check-gradle/pull/303)).
+
+### Changed
+
+- **Breaking:** the database schema updated - if using an external database the update scripts must be run!
+- The [exit codes](https://tldp.org/LDP/abs/html/exit-status.html) from the CLI have been changed to be in the range from 0-255 ([#4511](https://github.com/jeremylong/DependencyCheck/pull/4511).
+- The OSS Index Analyzer will automatically disable itself if a transport error occurs - preventing copious errors from being reported ([#5300](https://github.com/jeremylong/DependencyCheck/pull/5300])).
+
+
+### Fixed
+
+- Added an additional check for rejected CVEs to reduce FP ([#5268](https://github.com/jeremylong/DependencyCheck/pull/5268).
+- Corrected the analysis of `node_modules` to prevent NPEs ([#5266](https://github.com/jeremylong/DependencyCheck/pull/5266)).
+- Fixed error when scanning node packages with local dependencies ([#5235](https://github.com/jeremylong/DependencyCheck/pull/5235)).
+- Fixed NPE in the MSBuild Analyzer ([#5293](https://github.com/jeremylong/DependencyCheck/pull/5293)).
+- Several False Positives have been resolved.
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/46?closed=1).
+
+## [Version 7.4.4](https://github.com/jeremylong/DependencyCheck/releases/tag/v7.4.4) (2023-01-06)
 
 ### Fixed
 
