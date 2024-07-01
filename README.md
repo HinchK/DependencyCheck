@@ -8,6 +8,10 @@ Dependency-Check is a Software Composition Analysis (SCA) tool that attempts to 
 
 Documentation and links to production binary releases can be found on the [github pages](http://jeremylong.github.io/DependencyCheck/). Additionally, more information about the architecture and ways to extend dependency-check can be found on the [wiki].
 
+## Notice
+
+This product uses the NVD API but is not endorsed or certified by the NVD.
+
 ## 9.0.0 Upgrade Notice
 
 **Upgrading to 9.0.0 or later is mandatory**; previous versions of dependency-check
@@ -80,8 +84,8 @@ In order to analyze some technology stacks dependency-check may require other
 development tools to be installed. Some of the analysis listed below may be
 experimental and require the experimental analyzers to be enabled.
 
-1. To analyze .NET Assemblies the dotnet 6 run time or SDK must be installed.
-   - Assemblies targeting other run times can be analyzed - but 6 is required to run the analysis.
+1. To analyze .NET Assemblies the dotnet 8 run time or SDK must be installed.
+   - Assemblies targeting other run times can be analyzed - but 8 is required to run the analysis.
 2. If analyzing GoLang projects `go` must be installed.
 3. The analysis of `Elixir` projects requires `mix_audit`.
 4. The analysis of `npm`, `pnpm`, and `yarn` projects requires `npm`, `pnpm`, or `yarn` to be installed.
@@ -171,7 +175,7 @@ For installation to pass, you must have the following components installed:
 * Maven: `mvn -version` 3.5.0 and higher
 
 Tests cases require:
-* dotnet core version 6.0
+* dotnet core version 8.0
 * Go: `go version` 1.12 and higher
 * Ruby [bundler-audit](https://github.com/rubysec/bundler-audit#install)
 * [Yarn](https://classic.yarnpkg.com/en/docs/install/)
