@@ -1,8 +1,45 @@
 # Change Log
 
+## [Version 12.1.0](https://github.com/jeremylong/DependencyCheck/releases/tag/v12.1.0) (2025-02-16)
+
+- build(deps): bump open-vulnerability-client to 7.2.2 (#7407)
+  - resolves issue with downloading data from the NVD (#7406)
+- fix: Improve thread safety issue #7338 alternative (#7367)
+- feat: Implement Yarn Berry Analyser (#7319)
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/94?closed=1
+
+## [Version 12.0.2](https://github.com/jeremylong/DependencyCheck/releases/tag/v12.0.2) (2025-01-29)
+
+- fix: correct JSON report error (#7350)
+- fix: some compatability issues in the gitlab report (#7349)
+- fix: ArtifactoryAnalyzer updated to use the HTTPClient5-based Downloader and skip unusable results (#7293)
+- chore: allow messages via EngineVersionCheck (#7353)
+- chore: switch from javax.json to jakarta.json (#7326)
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/93?closed=1).
+
+## [Version 12.0.1](https://github.com/jeremylong/DependencyCheck/releases/tag/v12.0.1) (2025-01-19)
+
+- docs: Fix OSS Index Maven config documentation (#7322)
+- Fix OSS Index Maven config documentation
+- chore(docs): Document Gradle plugin support for failBuildOnUnusedSuppressionRule (#7307)
+- chore(docs): Correct analyzers config example to use Gradle dot-syntax (#7305)
+- fix: improve error message on improperly configured serverId credentials in settings.xml (#7313)
+- fix: Lower Basic serverId when Bearer was expected to a warning
+- fix: improve error message on improperly configured serverId credentials
+- fix: Correct nonProxyHosts support when no sys properties set (#7306)
+- core(docs): Group failBuildOnUnusedSuppressionRule flag next to suppression file configuration
+- core(docs): Update Gradle plugin documentation for failBuildOnUnusedSuppressionRule support
+- fix: Correct nonProxyHosts support when no sys properties set
+- chore(docs): Correct analyzers config example to use Gradle dot-syntax
+
+See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/92?closed=1). 
+
 ## [Version 12.0.0](https://github.com/jeremylong/DependencyCheck/releases/tag/v12.0.0) (2025-01-11)
 
-- feat: report on CVSS v4 (#7204)
+- BREAKING CHANGE: report on CVSS v4 (#7204)
+  - the schema has been updated to include CVSS v4 for JSON and XML reports
 - feat: show from which dependency the CVE comes in failure report (#7224)
 - feat: Use Maven settings decryption API for decrypting secrets from settings.xml (#7284)
 - feat: Extend authentication to support Bearer token for many resources (#7277)
