@@ -20,25 +20,25 @@ Copyright (c) 2014 - Jeremy Long. All Rights Reserved.
     <parent>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-parent</artifactId>
-        <version>12.0.1-SNAPSHOT</version>
+        <version>12.1.1-SNAPSHOT</version>
    </parent>
 
     <artifactId>dependency-check-utils</artifactId>
     <name>Dependency-Check Utils</name>
     <description>dependency-check-utils is a collection of common utility classes used within dependency-check that might be useful in other projects.</description>
     <scm>
-        <connection>scm:git:https://github.com/jeremylong/DependencyCheck.git</connection>
-        <url>https://github.com/jeremylong/DependencyCheck/tree/main/utils</url>
-        <developerConnection>scm:git:git@github.com:jeremylong/DependencyCheck.git</developerConnection>
+        <connection>scm:git:https://github.com/dependency-check/DependencyCheck.git</connection>
+        <url>https://github.com/dependency-check/DependencyCheck/tree/main/utils</url>
+        <developerConnection>scm:git:git@github.com/dependency-check/DependencyCheck.git</developerConnection>
         <tag>v6.4.1</tag>
     </scm>
     <properties>
-        <findbugs.onlyAnalyze>org.owasp.dependencycheck.utils.*</findbugs.onlyAnalyze>
+        <spotbugs.onlyAnalyze>org.owasp.dependencycheck.utils.*</spotbugs.onlyAnalyze>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.json</artifactId>
+            <artifactId>jakarta.json</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -95,7 +95,7 @@ Copyright (c) 2014 - Jeremy Long. All Rights Reserved.
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http</artifactId>
-            <version>4.1.115.Final</version>
+            <version>4.1.118.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
