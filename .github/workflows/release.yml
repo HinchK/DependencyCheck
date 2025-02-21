@@ -45,7 +45,7 @@ jobs:
         with:
           path: core/target/data
           key: odc-data
-      - uses: actions/setup-dotnet@v4.2.0
+      - uses: actions/setup-dotnet@v4.3.0
         with:
           dotnet-version: '8.0.x'
       - name: Set up JDK 11
@@ -57,7 +57,7 @@ jobs:
           server-id: ossrh
           server-username: ${{ secrets.OSSRH_USERNAME }}
           server-password: ${{ secrets.OSSRH_TOKEN }}
-      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
           version: 6.0.2
       - name: Configure Git user
@@ -186,7 +186,7 @@ jobs:
           prerelease: false
           draft: false
           body: |
-            Refer to the [CHANGELOG.md](https://github.com/jeremylong/DependencyCheck/blob/main/CHANGELOG.md#change-log) for information about improvements and upgrade notes.
+            Refer to the [CHANGELOG.md](https://github.com/dependency-check/DependencyCheck/blob/main/CHANGELOG.md#change-log) for information about improvements and upgrade notes.
 
       - name: Upload CLI
         id: upload-release-cli

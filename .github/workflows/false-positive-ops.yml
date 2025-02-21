@@ -41,7 +41,7 @@ jobs:
         with:
           issue-body: ${{ github.event.issue.body }}
           template-path: odc/.github/ISSUE_TEMPLATE/false-positive-report.yml
-      - uses: actions/setup-node@v4.1.0
+      - uses: actions/setup-node@v4.2.0
         with:
           node-version: 14
       - name: Initialize npm
@@ -83,7 +83,7 @@ jobs:
           ARTIFACTID: ${{ fromJSON(steps.purl-parser.outputs.result).name }}
           VERSION: ${{ fromJSON(steps.purl-parser.outputs.result).version }}
         run: |
-          ver=$(curl -s https://jeremylong.github.io/DependencyCheck/current.txt)
+          ver=$(curl -s https://dependency-check.github.io/DependencyCheck/current.txt)
           mkdir ./fp-project
           cp ${{github.workspace}}/odc/.github/workflows/files/maven-pom.start ./fp-project/pom.xml
           echo -n $ver >> ./fp-project/pom.xml
@@ -111,7 +111,7 @@ jobs:
           cd ..
       - name: Setup dotnet
         if: ${{ fromJSON(steps.purl-parser.outputs.result).type == 'nuget' }}
-        uses: actions/setup-dotnet@v4.2.0
+        uses: actions/setup-dotnet@v4.3.0
         with:
           dotnet-version: '8.0.x'
       - name: Setup dotnet fp-project
