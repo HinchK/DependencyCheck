@@ -165,7 +165,7 @@ Copyright (c) 2012 - Jeremy Long
         <maven-common-artifact-filters.version>3.4.0</maven-common-artifact-filters.version>
         <gmavenplus-plugin.version>4.3.1</gmavenplus-plugin.version>
         <com.h3xstream.retirejs.core.version>3.0.4</com.h3xstream.retirejs.core.version>
-        <jackson.version>2.21.0</jackson.version>
+        <jackson.version>2.21.1</jackson.version>
         <driver.postgresql.version>42.7.10</driver.postgresql.version>
         <driver.mysql.version>9.6.0</driver.mysql.version>
         <!--necessary for some IDEs to be able to execute test cases (Netbeans)-->
