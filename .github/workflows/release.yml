@@ -134,7 +134,7 @@ jobs:
           cache: 'maven'
           cache-dependency-path: '**/pom.xml'
       - name: Download release build
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: archive-release
       - name: Set up Docker
@@ -168,7 +168,7 @@ jobs:
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
           echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Download release build
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: archive-release
       - name: Create Release
@@ -243,7 +243,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Download Site
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: archive-site
           path: target/staging
