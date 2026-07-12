@@ -50,7 +50,13 @@ for %%i in ("%~dp0..") do set "BASEDIR=%%~fi"
 set REPO=
 #ENV_SETUP#
 
-if "%JAVACMD%"=="" set JAVACMD=#JAVA_BINARY#
+if "%JAVACMD%"=="" (
+    if exist "%JAVA_HOME%\bin\java.exe" (
+        set "JAVACMD=%JAVA_HOME%\bin\java.exe"
+    ) else (
+        set "JAVACMD=#JAVA_BINARY#"
+    )
+)
 
 if "%REPO%"=="" set REPO=%BASEDIR%\#REPO#
 
