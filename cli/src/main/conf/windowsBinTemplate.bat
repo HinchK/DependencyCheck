@@ -51,11 +51,8 @@ set REPO=
 #ENV_SETUP#
 
 if "%JAVACMD%"=="" (
-    if exist "%JAVA_HOME%\bin\java.exe" (
-        set "JAVACMD=%JAVA_HOME%\bin\java.exe"
-    ) else (
-        set "JAVACMD=#JAVA_BINARY#"
-    )
+    set "JAVACMD=#JAVA_BINARY#"
+    if not "%JAVA_HOME%"=="" if exist "%JAVA_HOME%\bin\java.exe" set "JAVACMD=%JAVA_HOME%\bin\java.exe"
 )
 
 if "%REPO%"=="" set REPO=%BASEDIR%\#REPO#
